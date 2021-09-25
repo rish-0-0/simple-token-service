@@ -1,0 +1,25 @@
+{
+  "name": "simple-token-service",
+  "version": "1.0.0",
+  "description": "Keep your token business elsewhere",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "npm run build && mocha --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rish-0-0/simple-token-service.git"
+  },
+  "keywords": [
+    "jwt",
+    "docker",
+    "jsonwebtoken",
+    "authentication"
+  ],
+  "author": "Rishabh Anand (rishabhanand42@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rish-0-0/simple-token-service/issues"
+  },
+  "homepage": "https://github.com/rish-0-0/simple-token-service#readme"
+}
