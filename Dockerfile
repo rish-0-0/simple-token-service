@@ -8,6 +8,6 @@ RUN npm install --production
 
 COPY dist/* ./dist
 
-RUN npm start
+CMD [ "npm", "start" ]
 
 EXPOSE 4321
