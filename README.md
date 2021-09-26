@@ -4,5 +4,12 @@ A simple `fastify-server` running to serve the basic JWT needs (generating, veri
 
 ## Build The Docker Image
 
-docker build -t <tag> .
+```shell
+docker build -t simple-token-service:latest .
+```
 
+## Run the image
+
+```shell
+docker run --name token --env-file .env -p 4321:4321 simple-token-service:latest
+```
