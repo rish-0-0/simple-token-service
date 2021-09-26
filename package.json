@@ -7,7 +7,7 @@
     "compile": "rimraf dist && tsc",
     "start": "node dist/src/index.js",
     "build:latest": "docker build -t simple-token-service:latest .",
-    "run:latest": "docker run --name token --env-file .env -p 4321:4321 simple-token-service:latest",
+    "docker:latest": "docker run --name token --env-file .env -p 4321:4321 simple-token-service:latest",
     "test": "npm run compile && mocha --exit"
   },
   "repository": {
