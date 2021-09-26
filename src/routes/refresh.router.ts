@@ -33,7 +33,7 @@ const refreshResponseSchema = {
 };
 
 async function refreshRoutes (fastify: FastifyInstance, opts: RouteShorthandOptions) {
-  fastify.get<{Headers: FromSchema<typeof refreshHeadersSchema>}>('/verify', {
+  fastify.get<{Headers: FromSchema<typeof refreshHeadersSchema>}>('/refresh', {
     ...opts,
     preHandler: async (request, reply) => {
       const token = request.headers.authorization.split(' ')[1];
