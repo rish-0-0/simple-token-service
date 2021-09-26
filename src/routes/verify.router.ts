@@ -1,9 +1,11 @@
 import { FastifyInstance, RouteShorthandOptions } from 'fastify';
+import createError from 'fastify-error';
 import { FromSchema } from 'json-schema-to-ts';
 import config from '../config';
 import { verify } from '../token';
 
 const SECRET = process.env.SECRET || config.DEFAULT_SECRET;
+const EmptyPayload = createError('400', 'empty payload');
 
 const verifyHeadersSchema = {
   type: 'object',
@@ -34,7 +36,7 @@ async function verifyRoutes (fastify: FastifyInstance, opts: RouteShorthandOptio
       const token = request.headers.authorization.split(' ')[1];
       const payload = await verify(token, SECRET);
       if (payload == null) {
-        throw new Error("couldn't verify token");
+        throw new EmptyPayload();
       }
       if (payload instanceof Error) {
         throw verify;

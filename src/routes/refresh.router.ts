@@ -1,11 +1,12 @@
 import { FastifyInstance, RouteShorthandOptions } from 'fastify';
+import createError from 'fastify-error';
 import { FromSchema } from 'json-schema-to-ts';
 import config from '../config';
-import BadRequest from '../errors/BadRequest';
 import { decode, generate } from '../token';
 
 const SECRET = process.env.SECRET || config.DEFAULT_SECRET;
 const EXPIRES_IN = process.env.EXPIRES_IN || config.DEFAULT_EXPIRY;
+const BadToken = createError('401', 'bad token');
 
 const refreshHeadersSchema = {
   type: 'object',
@@ -39,7 +40,7 @@ async function refreshRoutes (fastify: FastifyInstance, opts: RouteShorthandOpti
     const token = request.headers.authorization.split(' ')[1];
     const payload = decode(token)?.payload;
     if (payload == null) {
-      throw new BadRequest('bad token');
+      throw new BadToken();
     }
     const refreshToken = await generate(payload, SECRET, { expiresIn: EXPIRES_IN });
     return reply
