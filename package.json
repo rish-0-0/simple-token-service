@@ -18,7 +18,8 @@
     "jwt",
     "docker",
     "jsonwebtoken",
-    "authentication"
+    "authentication",
+    "oauth2.0"
   ],
   "author": "Rishabh Anand (rishabhanand42@gmail.com)",
   "license": "MIT",
