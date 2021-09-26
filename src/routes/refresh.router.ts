@@ -1,12 +1,14 @@
 import { FastifyInstance, RouteShorthandOptions } from 'fastify';
 import createError from 'fastify-error';
 import { FromSchema } from 'json-schema-to-ts';
+import { TokenExpiredError } from 'jsonwebtoken';
 import config from '../config';
-import { decode, generate } from '../token';
+import { decode, generate, verify } from '../token';
 
 const SECRET = process.env.SECRET || config.DEFAULT_SECRET;
 const EXPIRES_IN = process.env.EXPIRES_IN || config.DEFAULT_EXPIRY;
 const BadToken = createError('401', 'bad token');
+const EmptyPayload = createError('400', 'empty payload');
 
 const refreshHeadersSchema = {
   type: 'object',
@@ -33,6 +35,20 @@ const refreshResponseSchema = {
 async function refreshRoutes (fastify: FastifyInstance, opts: RouteShorthandOptions) {
   fastify.get<{Headers: FromSchema<typeof refreshHeadersSchema>}>('/verify', {
     ...opts,
+    preHandler: async (request, reply) => {
+      const token = request.headers.authorization.split(' ')[1];
+      const payload = await verify(token, SECRET);
+      if (payload == null) {
+        throw new EmptyPayload();
+      }
+      if (payload instanceof Error) {
+        if (payload instanceof TokenExpiredError) {
+          // expired tokens are allowed to go through
+          return;
+        }
+        throw payload;
+      }
+    },
     schema: {
       response: refreshResponseSchema
     }

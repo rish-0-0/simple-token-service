@@ -39,7 +39,7 @@ async function verifyRoutes (fastify: FastifyInstance, opts: RouteShorthandOptio
         throw new EmptyPayload();
       }
       if (payload instanceof Error) {
-        throw verify;
+        throw payload;
       }
     },
     schema: {
