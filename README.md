@@ -2,6 +2,8 @@
 
 A simple `fastify-server` running to serve the basic JWT needs (generating, verifying, refreshing).
 
+Uses `google-auth-library` and `jsonwebtoken`.
+
 ## Build The Docker Image
 
 ```shell
