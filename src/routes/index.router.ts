@@ -6,9 +6,9 @@ import googleAuthVerify from '../prevalidation';
 
 async function routes (instance: FastifyInstance, opts: RouteShorthandOptions) {
   instance.addHook('preValidation', googleAuthVerify);
-  instance.register(generateRoutes, opts);
-  instance.register(verifyRoutes, opts);
-  instance.register(refreshRoutes, opts);
+  instance.register(generateRoutes);
+  instance.register(verifyRoutes);
+  instance.register(refreshRoutes);
 }
 
 export default routes;

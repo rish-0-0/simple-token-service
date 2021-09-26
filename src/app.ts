@@ -5,10 +5,13 @@ import packageJSON from '../package.json';
 import routes from './routes/index.router';
 
 async function app () {
-  const instance: Fastify.FastifyInstance = Fastify.fastify();
+  const instance: Fastify.FastifyInstance = Fastify.fastify({
+    logger: true
+  });
   instance.setErrorHandler(errorHandler);
   instance.register(swagger, {
     routePrefix: '/',
+    exposeRoute: true,
     swagger: {
       info: {
         title: 'Simple Token Service',
