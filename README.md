@@ -20,6 +20,8 @@ npm run build:latest
 docker run --name token --env-file .env -p 4321:4321 simple-token-service:latest
 ```
 
+### Quick alternative
+
 ```shell
 npm run docker:latest
 ```
