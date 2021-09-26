@@ -28,7 +28,7 @@ const generateResponseSchema = {
   }
 };
 
-function generateRoutes (fastify: FastifyInstance, opts: RouteShorthandOptions) {
+async function generateRoutes (fastify: FastifyInstance, opts: RouteShorthandOptions) {
   fastify.post<{Body: FromSchema<typeof generateBodySchema>}>(
     '/generate',
     {
