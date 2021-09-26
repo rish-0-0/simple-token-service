@@ -1,11 +1,8 @@
 import * as Fastify from 'fastify';
-import googleAuthVerify from './prevalidation';
-import generateRoutes from './routes/generate.router';
-import refreshRoutes from './routes/refresh.router';
-import verifyRoutes from './routes/verify.router';
 import errorHandler from './utils/error-handler';
 import swagger from 'fastify-swagger';
 import packageJSON from '../package.json';
+import routes from './routes/index.router';
 
 async function app () {
   const instance: Fastify.FastifyInstance = Fastify.fastify();
@@ -22,11 +19,7 @@ async function app () {
       produces: ['application/json']
     }
   });
-  instance.addHook('preValidation', googleAuthVerify);
-  instance.register(generateRoutes);
-  instance.register(verifyRoutes);
-  instance.register(refreshRoutes);
-
+  instance.register(routes, { prefix: '/token' });
   return instance;
 }
 
